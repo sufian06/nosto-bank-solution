@@ -11,10 +11,23 @@
 
 document.getElementById("btn-withdraw").addEventListener("click", function () {
   const newWithdrawAmount = getInputFieldValueById("withdraw-field");
-  const previousWithdrawTotal = getTextElementValueById("withdraw-total");
-  const newWithdrawTotal = previousWithdrawTotal + newWithdrawAmount;
-  setTextElementValueById("withdraw-total", newWithdrawTotal);
   const previousBalanceTotal = getTextElementValueById("balance-total");
+  if (newWithdrawAmount < 0) {
+    alert("you enter negative number! Please enter positive value");
+    return false;
+  } else if (isNaN(newWithdrawAmount)) {
+    alert("Your input is not a number! Please enter number");
+    return false;
+  } else if (newWithdrawAmount > previousBalanceTotal) {
+    alert("You have not suficient balance");
+    return false;
+  }
+  const previousWithdrawTotal = getTextElementValueById("withdraw-total");
+
+  const newWithdrawTotal = previousWithdrawTotal + newWithdrawAmount;
+
+  setTextElementValueById("withdraw-total", newWithdrawTotal);
+
   const newBalanceTotal = previousBalanceTotal - newWithdrawAmount;
   setTextElementValueById("balance-total", newBalanceTotal);
 });
